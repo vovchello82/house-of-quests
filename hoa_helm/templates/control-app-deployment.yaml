@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name}}
+  name: {{ .Values.name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name}}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.name}}
+    spec:
+      serviceAccountName: hoa-control-app
+      containers:
+      - image: {{ .Values.image.name}}
+        name: {{ .Values.name}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name}}
+  name: {{ .Values.name}}
+spec:
+  ports:
+  - name: port-1
+    port: 1323
+    protocol: TCP
+    targetPort: 1323     
+  selector:
+    name: {{ .Values.name}}
