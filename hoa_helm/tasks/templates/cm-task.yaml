@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Values.task.name }}
-data:
-  description.html: |
-{{ .Files.Get "assests/task1/description.html" | indent 4 }}

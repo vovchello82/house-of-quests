@@ -2,12 +2,12 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   creationTimestamp: null
-  name: reaper
+  name: {{ .Values.task.name }}-reaper
 spec:
   jobTemplate:
     metadata:
       creationTimestamp: null
-      name: reaper
+      name: {{ .Values.task.name }}-reaper
     spec:
       activeDeadlineSeconds: 80
       ttlSecondsAfterFinished: 60
