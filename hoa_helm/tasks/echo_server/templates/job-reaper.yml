@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: {{ .Values.task.name }}-reaper
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: {{ .Values.task.name }}-reaper
+    spec:
+      activeDeadlineSeconds: 80
+      ttlSecondsAfterFinished: 60
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          serviceAccountName: hoa-control-app        
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            args:
+            - |
+              sleep 15
+              kubectl scale deployment task2-impl --replicas 0
+              sleep 1
+              kubectl scale deployment task2-impl --replicas 1
+            image: bitnami/kubectl
+            name: reaper
+            imagePullPolicy: IfNotPresent
+            resources: {}
+          restartPolicy: OnFailure
+  schedule: '*/1 * * * *'
