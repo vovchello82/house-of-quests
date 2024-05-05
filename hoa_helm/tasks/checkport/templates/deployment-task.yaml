@@ -26,12 +26,12 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: config-volume
+        - name: asset-volume
           mountPath: /usr/share/nginx/html
         resources:
           {{- toYaml .Values.task.impl.resources | nindent 12 }}
       volumes:
-        - name: config-volume
+        - name: asset-volume
           configMap:
            name: {{ .Values.task.name }}
            

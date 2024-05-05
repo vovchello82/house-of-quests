@@ -11,15 +11,15 @@ spec:
       paths:
       - backend:
           service:
-            name: {{ .Values.task.name }}-impl
+            name: hoa-control-app
             port:
-              number: 8888
-        path: /{{.Release.Namespace}}/task1/service(/|$)(.*)
+              number: 1323
+        path: /{{.Release.Namespace}}/{{ .Values.task.name }}/logs(/|$)(.*)
         pathType: ImplementationSpecific      
       - backend:
           service:
             name: {{ .Values.task.name }}-descr
             port:
               number: 80
-        path: /{{.Release.Namespace}}/task1/info(/|$)(.*)
+        path: /{{.Release.Namespace}}/{{ .Values.task.name }}/info(/|$)(.*)
         pathType: ImplementationSpecific

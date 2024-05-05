@@ -24,4 +24,4 @@ spec:
         imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
         ports:
         - containerPort: 8888
-           
+        
