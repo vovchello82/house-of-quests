@@ -11,13 +11,6 @@ spec:
       paths:
       - backend:
           service:
-            name: hoa-control-app
-            port:
-              number: 1323
-        path: /{{.Release.Namespace}}/{{ .Values.task.name }}/logs(/|$)(.*)
-        pathType: ImplementationSpecific      
-      - backend:
-          service:
             name: {{ .Values.task.name }}-descr
             port:
               number: 80
