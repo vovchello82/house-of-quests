@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /tasks/{{ .Values.task.name }}/logs
-#    nginx.ingress.kubernetes.io/use-regex: "true"
   name: {{ .Values.task.name }}-logs
 spec:
   rules:

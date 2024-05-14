@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /index.html
+  name: {{ .Values.name }}-landingpage
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Values.name }}-landingpage
+            port:
+              number: 80
+        path: /{{ .Release.Namespace }}
+        pathType: Exact      

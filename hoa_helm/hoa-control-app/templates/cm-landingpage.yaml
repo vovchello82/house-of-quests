@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}-landingpage
+data:
+  index.html: |
+{{ tpl (.Files.Get "assets/index.html" ) . | indent 4 }}

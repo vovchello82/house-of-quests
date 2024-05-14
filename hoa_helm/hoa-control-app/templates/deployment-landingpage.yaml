@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-landingpage
+  labels:
+    app: {{ .Values.name }}-landingpage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-landingpage
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-landingpage
+    spec:
+      containers:      
+      - image: nginx:alpine
+        name: descr
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: asset-volume
+          mountPath: /usr/share/nginx/html         
+      volumes:
+        - name: asset-volume
+          configMap:
+           name: {{ .Values.name }}-landingpage
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.name }}-landingpage
+  name: {{ .Values.name }}-landingpage
+spec:
+  ports:
+  - name: landingpage
+    port: 80
+    protocol: TCP
+    targetPort: 80           
+  selector:
+    app: {{ .Values.name }}-landingpage
+           
