@@ -20,9 +20,9 @@ spec:
             type: check    
         spec:
           containers:                   
-          - image: {{ .Values.task.test.image.name }}
+          - image: curlimages/curl
             name: check
             imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
-            env:
-    {{- toYaml .Values.task.test.env | nindent 12 }}        
+            args:
+              - "http://task1-impl:8888"
           restartPolicy: Never
