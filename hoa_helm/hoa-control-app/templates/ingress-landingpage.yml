@@ -14,4 +14,4 @@ spec:
             port:
               number: 80
         path: /{{ .Release.Namespace }}
-        pathType: Exact      
+        pathType: Exact

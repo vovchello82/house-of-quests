@@ -9,8 +9,6 @@ spec:
   schedule: "*/2 * * * *"
   jobTemplate:  
     spec:    
-      backoffLimit: 0
-      activeDeadlineSeconds: 100
       ttlSecondsAfterFinished: 100
       template:
         metadata:
