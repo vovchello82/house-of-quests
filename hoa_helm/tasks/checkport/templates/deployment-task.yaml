@@ -29,19 +29,7 @@ spec:
         - name: asset-volume
           mountPath: /usr/share/nginx/html
         resources:
-          {{- toYaml .Values.task.impl.resources | nindent 12 }}
-      - name: a
-        command:
-        - /bin/sh
-        - -c
-        args:
-        - |
-          sleep 15
-          kubectl scale deployment task1-impl --replicas 0
-          sleep 1
-          kubectl scale deployment task1-impl --replicas 1
-        image: bitnami/kubectl
-        imagePullPolicy: IfNotPresent                
+          {{- toYaml .Values.task.impl.resources | nindent 12 }}               
       volumes:
         - name: asset-volume
           configMap:
