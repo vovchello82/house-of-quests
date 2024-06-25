@@ -1,0 +1,29 @@
+<html>
+<title>The house of apps: echo server advanced</title>
+
+<h1>{{ .Release.Name }}</h1>
+<p>
+<ol>
+    <li>
+        Implement an app running on port 8888. The app should implement the following REST endpoint
+        <ul>
+            <li>accepting only POST requests and responding with the value from the request body</li>
+            <li>accepting only requests of plain/text content type</li>
+            <li>the request body must be alpha numeric</li>
+            <li>the length of the request body must be less than 9 charachters</li>
+            <li>responding with BadRequest in case of requierments violation</li>
+        </ul>
+    </li>
+    <li>
+        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Name }}:latest</i>
+    </li>
+    <li>
+        Upload the image to the DockerHub
+    </li>
+    <li>
+        Check if you could solve the quest
+    </li>
+</ol>
+</p>
+
+</html>

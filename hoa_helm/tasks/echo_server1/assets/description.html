@@ -1,18 +1,19 @@
 <html>
-<title>The house of apps: TASK2</title>
+<title>The house of apps: echo server</title>
 
-<h1>TASK2</h1>
+<h1>{{ .Release.Name }}</h1>
 <p>
 <ol>
     <li>
         Implement an app running on port 8888. The app should implement the following REST endpoint
         <ul>
             <li>accepting only POST requests and responding with the value from the request body</li>
-            <li>responding with BadRequest, if the request body has over 9 charachters or not alpha numeric</li>
+            <li>accepting only requests of plain/text content type</li>
+            <li>responding with BadRequest in case of requierments violation</li>
         </ul>
     </li>
     <li>
-        Build an image contains and runs your app with the tag <i>vzlobins/task2:latest</i>
+        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Name }}:latest</i>
     </li>
     <li>
         Upload the image to the DockerHub

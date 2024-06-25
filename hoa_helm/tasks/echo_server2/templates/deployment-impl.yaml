@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.task.name }}-impl
+  labels:
+    task: {{ .Values.task.name }}
+    type: impl  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.task.name }}-impl
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.task.name }}-impl
+        task: {{ .Values.task.name }}
+        type: impl          
+    spec:
+      containers:    
+      - image: {{ .Values.task.impl.image.name }}
+        name: impl
+        imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
+        ports:
+        - containerPort: 8888
+           

@@ -1,0 +1,40 @@
+# Default values for hoa_helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+task:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+  impl:
+    image:
+      name: vzlobins/{{ .Release.Name }}:latest
+      pullPolicy: Always
+  test:
+    image: 
+      name: vzlobins/check-echo-server
+      pullPolicy: Always
+    env:
+      - name: TARGET_ADR
+        value: "http://task2-impl:8888"
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false

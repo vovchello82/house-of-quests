@@ -12,7 +12,7 @@ podAnnotations: {}
 podLabels: {}
 
 task:
-  name: task2
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
   impl:
     image:
       name: vzlobins/task2:latest

@@ -1,0 +1,66 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.task.name }}-check
+  labels:
+    task: {{ .Values.task.name }}
+    type: check    
+spec:
+  schedule: "*/2 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:  
+    spec:    
+      ttlSecondsAfterFinished: 100
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app:  {{ .Values.task.name }}-check
+            task: {{ .Values.task.name }}
+            type: check    
+        spec:
+          containers:                   
+          - image: nginx:alpine     
+            name: happy-path
+            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ $(curl -POST http://task2-impl:8888 -H 'Content-type: text/plain' -s -d 'tesT12') != 'tesT12' ]; then exit 1; else echo 'happy-path checked'; fi" ]
+
+          - image: nginx:alpine     
+            name: allowed-content-type
+            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ $(curl  -w '%{http_code}' -s -POST http://task2-impl:8888 -H 'Content-type: json/application' -s -d 'A') != \"405\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
+
+          - image: nginx:alpine        
+            name: allowed-method
+            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ $(curl -w '%{http_code}' -s http://task2-impl:8888) != \"405\" ]; then exit 1; else echo 'allowed-method checked'; fi" ]
+
+          - image: nginx:alpine         
+            name:  alpha-numeric-check
+            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ $(curl -w '%{http_code}' -POST http://task2-impl:8888 -H 'Content-type: text/plain' -d 'X ') != \"400\" ]; then exit 1; else echo 'alpha-numeric-check checked'; fi" ]
+
+          - image: nginx:alpine       
+            name: post-size-check
+            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ $(curl -w '%{http_code}' -POST http://task2-impl:8888 -H 'Content-type: text/plain' -d '12345678aB') != \"401\" ]; then exit 1; else echo 'post-size-check checked'; fi" ]
+
+          restartPolicy: Never
+
+
