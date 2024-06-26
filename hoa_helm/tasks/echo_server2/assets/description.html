@@ -15,8 +15,8 @@
         </ul>
     </li>
     <li>
-        Build an image contains and runs your app with the tag <i>vzlobins/[TEAM_NAME]-[TASK_ID]:latest</i>
-        e.g. vzlobins/teamX-task3:latest
+        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Namespace }}-{{ .Release.Name
+            }}:latest</i>
     </li>
     <li>
         Upload the image to the DockerHub

@@ -5,3 +5,5 @@ metadata:
 data:
   index.html: |
 {{ tpl (.Files.Get "assets/index.html" ) . | indent 4 }}
+  style.css: |
+{{ tpl (.Files.Get "assets/style.css" ) . | indent 4 }}

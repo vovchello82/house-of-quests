@@ -13,7 +13,8 @@
         </ul>
     </li>
     <li>
-        Build an image contains and runs your app with the tag <i>vzlobins/[TEAM_NAME]-[TASK_ID]:latest</i>
+        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Namespace }}-{{ .Release.Name
+            }}:latest</i>
         e.g. vzlobins/teamX-task3:latest
     </li>
     <li>

@@ -1,4 +1,9 @@
 <html>
+
+<head>
+    <link rel="stylesheet" href="{{ .Release.Namespace }}/style.css">
+    <meta name="color-scheme" content="light dark">
+</head>
 <title>The house of apps</title>
 
 <h1>Welcome to House of Quests</h1>
@@ -40,19 +45,19 @@
     <li>
         <h3>Task4</h3>
         <p>
-            <a href="{{ .Release.Namespace }}/task4/info" disabled>Description</a>
+            <a href="{{ .Release.Namespace }}/task4/info" class="disabled">Description</a>
         </p>
         <p>
-            <a href="{{ .Release.Namespace }}/task4/logs" disabled>Logs</a>
+            <a href="{{ .Release.Namespace }}/task4/logs" class="disabled">Logs</a>
         </p>
     </li>
     <li>
         <h3>Task5</h3>
         <p>
-            <a href="{{ .Release.Namespace }}/task5/info" disabled>Description</a>
+            <a href="{{ .Release.Namespace }}/task5/info" class="disabled">Description</a>
         </p>
         <p>
-            <a href="{{ .Release.Namespace }}/task5/logs" disabled>Logs</a>
+            <a href="{{ .Release.Namespace }}/task5/logs" class="disabled">Logs</a>
         </p>
     </li>
 </ol>
