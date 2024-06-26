@@ -57,5 +57,3 @@ spec:
             args: [ "if [ $(curl -w '%{http_code}' -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: text/plain' -d '12345678aB') != \"401\" ]; then exit 1; else echo 'post-size-check checked'; fi" ]
 
           restartPolicy: Never
-
-

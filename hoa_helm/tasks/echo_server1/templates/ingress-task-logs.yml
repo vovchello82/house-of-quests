@@ -14,5 +14,5 @@ spec:
             name: hoa-control-app
             port:
               number: 1323
-        path: /{{ .Release.Namespace }}/{{ .Release.Name }}-{{ .Chart.Name }}/logs
+        path: /{{ .Release.Namespace }}/{{ .Release.Name }}/logs
         pathType: Exact      

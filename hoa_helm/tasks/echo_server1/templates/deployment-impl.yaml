@@ -19,7 +19,7 @@ spec:
         type: impl          
     spec:
       containers:    
-      - image: {{ .Values.task.impl.image.name }}
+      - image: {{ .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
         name: impl
         imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
         ports:

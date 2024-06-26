@@ -23,7 +23,6 @@ spec:
           containers:                   
           - image: nginx:alpine     
             name: happy-path
-            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
             command:
               - /bin/sh
               - -c
@@ -31,7 +30,6 @@ spec:
 
           - image: nginx:alpine     
             name: allowed-content-type
-            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
             command:
               - /bin/sh
               - -c
@@ -39,12 +37,9 @@ spec:
 
           - image: nginx:alpine        
             name: allowed-method
-            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
             command:
               - /bin/sh
               - -c
             args: [ "if [ $(curl -w '%{http_code}' -s http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888) != \"405\" ]; then exit 1; else echo 'allowed-method checked'; fi" ]
 
           restartPolicy: Never
-
-

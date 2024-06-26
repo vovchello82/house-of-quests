@@ -14,6 +14,7 @@ podLabels: {}
 task:
   impl:
     image:
+      repo: vzlobins
       name: vzlobins/task2:latest
       pullPolicy: Always
 
