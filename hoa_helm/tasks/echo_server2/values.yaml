@@ -17,13 +17,6 @@ task:
     image:
       name: vzlobins/task2:latest
       pullPolicy: Always
-  test:
-    image: 
-      name: vzlobins/check-echo-server
-      pullPolicy: Always
-    env:
-      - name: TARGET_ADR
-        value: "http://task2-impl:8888"
 
 autoscaling:
   enabled: false

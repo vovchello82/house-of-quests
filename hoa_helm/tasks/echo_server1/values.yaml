@@ -12,18 +12,10 @@ podAnnotations: {}
 podLabels: {}
 
 task:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}
   impl:
     image:
-      name: vzlobins/{{ .Release.Name }}:latest
+      name: vzlobins/task2:latest
       pullPolicy: Always
-  test:
-    image: 
-      name: vzlobins/check-echo-server
-      pullPolicy: Always
-    env:
-      - name: TARGET_ADR
-        value: "http://task2-impl:8888"
 
 autoscaling:
   enabled: false

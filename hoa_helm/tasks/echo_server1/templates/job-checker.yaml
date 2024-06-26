@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Values.task.name }}-check
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-check
   labels:
-    task: {{ .Values.task.name }}
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
     type: check    
 spec:
   schedule: "*/2 * * * *"
@@ -16,8 +16,8 @@ spec:
       template:
         metadata:
           labels:
-            app:  {{ .Values.task.name }}-check
-            task: {{ .Values.task.name }}
+            app:  {{ .Release.Name }}-{{ .Chart.Name }}-check
+            task: {{ .Release.Name }}-{{ .Chart.Name }}
             type: check    
         spec:
           containers:                   
@@ -27,7 +27,7 @@ spec:
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl -POST http://task2-impl:8888 -H 'Content-type: text/plain' -s -d 'tesT12') != 'tesT12' ]; then exit 1; else echo 'happy-path checked'; fi" ]
+            args: [ "if [ $(curl -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: text/plain' -s -d 'tesT12') != 'tesT12' ]; then exit 1; else echo 'happy-path checked'; fi" ]
 
           - image: nginx:alpine     
             name: allowed-content-type
@@ -35,7 +35,7 @@ spec:
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl  -w '%{http_code}' -s -POST http://task2-impl:8888 -H 'Content-type: json/application' -s -d 'A') != \"405\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
+            args: [ "if [ $(curl  -w '%{http_code}' -s -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: json/application' -s -d 'A') != \"415\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
 
           - image: nginx:alpine        
             name: allowed-method
@@ -43,7 +43,7 @@ spec:
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl -w '%{http_code}' -s http://task2-impl:8888) != \"405\" ]; then exit 1; else echo 'allowed-method checked'; fi" ]
+            args: [ "if [ $(curl -w '%{http_code}' -s http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888) != \"405\" ]; then exit 1; else echo 'allowed-method checked'; fi" ]
 
           restartPolicy: Never
 

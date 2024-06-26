@@ -2,9 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /tasks/{{ .Values.task.name }}/logs
+    nginx.ingress.kubernetes.io/rewrite-target: /tasks/{{ .Release.Name }}-{{ .Chart.Name }}/logs
 #    nginx.ingress.kubernetes.io/use-regex: "true"
-  name: {{ .Values.task.name }}-logs
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-logs
 spec:
   rules:
   - http:
@@ -14,5 +14,5 @@ spec:
             name: hoa-control-app
             port:
               number: 1323
-        path: /{{ .Release.Namespace }}/{{ .Values.task.name }}/logs
+        path: /{{ .Release.Namespace }}/{{ .Release.Name }}-{{ .Chart.Name }}/logs
         pathType: Exact      

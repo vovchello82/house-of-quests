@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.task.name }}-impl
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-impl
   labels:
-    task: {{ .Values.task.name }}
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
     type: impl  
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.task.name }}-impl
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
   strategy: {}
   template:
     metadata:
       labels:
-        app: {{ .Values.task.name }}-impl
-        task: {{ .Values.task.name }}
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+        task: {{ .Release.Name }}-{{ .Chart.Name }}
         type: impl          
     spec:
       containers:    

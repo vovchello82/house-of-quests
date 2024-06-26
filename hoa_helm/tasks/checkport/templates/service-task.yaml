@@ -3,9 +3,9 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: {{ .Values.task.name }}-descr
-    task: {{ .Values.task.name }}
-  name: {{ .Values.task.name }}-descr
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-descr
 spec:
   ports:
   - name: descr-port
@@ -13,4 +13,4 @@ spec:
     protocol: TCP
     targetPort: 80           
   selector:
-    app: {{ .Values.task.name }}-descr
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-descr

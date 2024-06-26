@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Values.task.name }}-check
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-check
   labels:
-    task: {{ .Values.task.name }}
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
     type: check  
 spec:
   schedule: "*/2 * * * *"
@@ -15,14 +15,13 @@ spec:
       template:
         metadata:
           labels:
-            app:  {{ .Values.task.name }}-check
-            task: {{ .Values.task.name }}
+            app:  {{ .Release.Name }}-{{ .Chart.Name }}-check
+            task: {{ .Release.Name }}-{{ .Chart.Name }}
             type: check    
         spec:
           containers:                   
           - image: curlimages/curl
             name: check
-            imagePullPolicy: {{ .Values.task.test.image.pullPolicy }}
             args:
-              - "http://task1-impl:8888"
+              - "http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888"
           restartPolicy: Never

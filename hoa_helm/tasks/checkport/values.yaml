@@ -12,18 +12,10 @@ podAnnotations: {}
 podLabels: {}
 
 task:
-  name: task1
   impl:
     image:
       name: vzlobins/task1:latest
       pullPolicy: Always
-  test:
-    image: 
-      name: vzlobins/checkport
-      pullPolicy: Always
-    env:
-      - name: TARGET_ADR
-        value: "http://task1-impl:8888"
 
 autoscaling:
   enabled: false

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.task.name }}-descr
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-descr
   labels:
-    app: {{ .Values.task.name }}-descr
-    task: {{ .Values.task.name }}
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
     type: descr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.task.name }}-descr
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
   strategy: {}
   template:
     metadata:
       labels:
-        app: {{ .Values.task.name }}-descr
-        task: {{ .Values.task.name }}
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+        task: {{ .Release.Name }}-{{ .Chart.Name }}
         type: descr
     spec:
       containers:      
@@ -33,5 +33,5 @@ spec:
       volumes:
         - name: asset-volume
           configMap:
-           name: {{ .Values.task.name }}
+           name: {{ .Release.Name }}-{{ .Chart.Name }}
            

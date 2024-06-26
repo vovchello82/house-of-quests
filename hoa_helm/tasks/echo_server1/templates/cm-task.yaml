@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.task.name }}
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-cm
 data:
   description.html: |
 {{ .Files.Get "assets/description.html" | indent 4 }}
