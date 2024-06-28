@@ -2,11 +2,10 @@
 
 <head>
     <link rel="stylesheet" href="{{ .Release.Namespace }}/style.css">
-    <meta name="color-scheme" content="light dark">
 </head>
 <title>The house of apps</title>
 
-<h1>Welcome to House of Quests</h1>
+<h1>Welcome {{ .Release.Namespace }} to House of Quests</h1>
 <p>
 <p>
     <a href="{{ .Release.Namespace }}/status">Quests status</a>
@@ -16,7 +15,7 @@
 <h2>Quests</h2>
 <ol>
     <li>
-        <h3>Task1</h3>
+        <h3>Task 1</h3>
         <p>
             <a href="{{ .Release.Namespace }}/task1/info">Description</a>
         </p>
@@ -25,7 +24,7 @@
         </p>
     </li>
     <li>
-        <h3>Task2</h3>
+        <h3>Task 2</h3>
         <p>
             <a href="{{ .Release.Namespace }}/task2/info">Description</a>
         </p>
@@ -34,7 +33,7 @@
         </p>
     </li>
     <li>
-        <h3>Task3</h3>
+        <h3>Task 3</h3>
         <p>
             <a href="{{ .Release.Namespace }}/task3/info">Description</a>
         </p>
@@ -43,7 +42,7 @@
         </p>
     </li>
     <li>
-        <h3>Task4</h3>
+        <h3>Task 4</h3>
         <p>
             <a href="{{ .Release.Namespace }}/task4/info" class="disabled">Description</a>
         </p>
@@ -52,7 +51,7 @@
         </p>
     </li>
     <li>
-        <h3>Task5</h3>
+        <h3>Task 5</h3>
         <p>
             <a href="{{ .Release.Namespace }}/task5/info" class="disabled">Description</a>
         </p>

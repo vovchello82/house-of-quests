@@ -1,4 +1,9 @@
 <html>
+
+<head>
+    <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
+</head>
+
 <title>The house of apps: echo server</title>
 
 <h1>echo server</h1>
@@ -15,7 +20,6 @@
     <li>
         Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Namespace }}-{{ .Release.Name
             }}:latest</i>
-        e.g. vzlobins/teamX-task3:latest
     </li>
     <li>
         Upload the image to the DockerHub

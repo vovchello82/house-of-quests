@@ -3,5 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-{{ .Chart.Name }}-cm
 data:
-  description.html: |
-{{ tpl (.Files.Get "assets/description.html" ) . | indent 4 }}  
+  index.html: |
+{{ tpl (.Files.Get "assets/index.html" ) . | indent 4 }}  
+  style.css: |
+{{ tpl (.Files.Get "assets/style.css" ) . | indent 4 }}
