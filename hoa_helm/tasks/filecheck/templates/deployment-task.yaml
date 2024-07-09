@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+  labels:
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+    type: descr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+        task: {{ .Release.Name }}-{{ .Chart.Name }}
+        type: descr
+    spec:
+      containers:      
+      - image: nginx:alpine
+        name: descr
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: asset-volume
+          mountPath: /usr/share/nginx/html
+        resources:
+          {{- toYaml .Values.task.impl.resources | nindent 12 }}               
+      volumes:
+        - name: asset-volume
+          configMap:
+           name: {{ .Release.Name }}-{{ .Chart.Name }}
+           

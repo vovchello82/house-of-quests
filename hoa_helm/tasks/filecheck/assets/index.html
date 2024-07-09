@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
+</head>
+<title>The house of apps: a file creating app</title>
+
+<h1>App creating a specified file</h1>
+<p>
+<ol>
+    <li>
+        Implement an app creates a file <i>/tmp/foo.txt</i> and then exits with the exit code 0
+    </li>
+    <li>
+        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Namespace }}-{{ .Release.Name
+            }}:latest</i>
+    </li>
+    <li>
+        Upload the image to the DockerHub
+    </li>
+    <li>
+        Check if you could solve the quest
+    </li>
+</ol>
+</p>
+
+</html>

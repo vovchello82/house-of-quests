@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-check
+  labels:
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+    type: check  
+spec:
+  schedule: "*/2 * * * *"
+  jobTemplate:  
+    spec:    
+      backoffLimit: 0
+      activeDeadlineSeconds: 100
+      ttlSecondsAfterFinished: 100
+      template:
+        metadata:
+          labels:
+            app:  {{ .Release.Name }}-{{ .Chart.Name }}-check
+            task: {{ .Release.Name }}-{{ .Chart.Name }}
+            type: impl    
+        spec:
+          containers:                   
+          - image: nginx:alpine         
+            name:  file-exist-check
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ ! -f /tmp/foo.txt ]; then echo 'no foo.txt file'; exit 1; else echo 'file existing checked'; fi" ]
+            volumeMounts:
+            - mountPath: /tmp
+              name: file-volume
+
+          initContainers:
+
+          - image: {{ .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
+            name: file-exist-impl
+            imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
+            volumeMounts:
+            - mountPath: /tmp
+              name: file-volume
+
+          restartPolicy: Never
+          volumes:
+          - name: file-volume
+            emptyDir:
+              sizeLimit: 5Mi
