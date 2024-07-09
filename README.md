@@ -12,6 +12,7 @@ A scalable platform for setting up hackatons, team events and coding competition
 Team operate in their own worskpaces which are represented by a corresponsing K8S workspace. All for the current team intended quests are being deployed as helm charts in the target workspace.
 
 Team workspace <-> K8S workspace
+Task solution <-> K8S pod
 
 
 ### How to deploy a task
