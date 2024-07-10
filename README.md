@@ -20,22 +20,30 @@ Team operate in their own worskpaces which are represented by a corresponsing K8
 ### How ro deploy a task
 
 Wheather there is no dedicated k8s workspace, run the following command from the according helm task subfolder
-```helm install {TASK_NAME} . -n {TEAM_NAME} --create-namespace```
+```sh
+helm install {TASK_NAME} . -n {TEAM_NAME} --create-namespace
+```
 
 If the workspace already exists
-```helm install {TASK_NAME} . -n {TEAM_NAME}```
+```sh
+helm install {TASK_NAME} . -n {TEAM_NAME}
+```
 
 ### Metrics
 
 The hoa control app exposes measurements e.g. amount of solved task etc. This metrics can be monitored, aggregated and visualized by monitoring systems like prometheus, influxdb etc. pp. 
 The for prometheus required labels are already added to the hoa pod so that the metrics can already be scrapped by prometheus. To install the prometheus community version run the following command 
 
-```helm install prometheus prometheus-community/prometheus```
+```sh
+helm install prometheus prometheus-community/prometheus
+```
 
 ### KIND
 #### nginx ingress controller
 
-```kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml```
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+```
 
 #### Kind example configuration
 
