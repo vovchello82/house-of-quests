@@ -1,4 +1,3 @@
-{{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -32,8 +31,7 @@ spec:
               name: file-volume
 
           initContainers:
-
-          - image: {{ .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
+          - image: {{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo  }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
             name: file-exist-impl
             imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
             volumeMounts:

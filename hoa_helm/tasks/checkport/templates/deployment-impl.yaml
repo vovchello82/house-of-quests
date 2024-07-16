@@ -19,7 +19,7 @@ spec:
         type: impl          
     spec:
       containers:    
-      - image: {{ .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
+      - image: {{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
         name: impl
         imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
         ports:

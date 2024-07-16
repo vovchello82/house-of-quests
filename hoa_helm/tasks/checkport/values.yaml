@@ -14,7 +14,7 @@ podLabels: {}
 task:
   impl:
     image:
-      repo: vzlobins
+      repo:
       pullPolicy: Always
 
 autoscaling:
