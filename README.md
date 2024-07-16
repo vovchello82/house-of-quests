@@ -19,15 +19,17 @@ Team operate in their own worskpaces which are represented by a corresponsing K8
 
 ### How ro deploy a task
 
-Wheather there is no dedicated k8s workspace, run the following command from the according helm task subfolder
+Wheather there is no dedicated k8s workspace, run the following command from the according helm task subfolder. The parameter task.impl.image.repo is required 
 ```sh
-helm install {TASK_NAME} . -n {TEAM_NAME} --create-namespace
+helm install {TASK_NAME} . -n {TEAM_NAME} --create-namespace --set task.impl.image.repo=dockerRepository
 ```
 
 If the workspace already exists
 ```sh
-helm install {TASK_NAME} . -n {TEAM_NAME}
+helm install {TASK_NAME} -n {TEAM_NAME} --set task.impl.image.repo=dockerRepository .
 ```
+
+To set 
 
 ### Metrics
 
