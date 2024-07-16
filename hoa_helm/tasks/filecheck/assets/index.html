@@ -12,7 +12,8 @@
         Implement an app creates a file <i>/tmp/foo.txt</i> and then exits with the exit code 0
     </li>
     <li>
-        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Namespace }}-{{ .Release.Name
+        Build an image contains and runs your app with the tag <i>{{ .Values.task.impl.image.repo }}/{{
+            .Release.Namespace }}-{{ .Release.Name
             }}:latest</i>
     </li>
     <li>

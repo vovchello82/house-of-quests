@@ -1,3 +1,4 @@
+{{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

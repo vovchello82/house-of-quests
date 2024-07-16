@@ -12,8 +12,8 @@
         Implement an app running on port 8888 and hanling incoming HTTP requests
     </li>
     <li>
-        Build an image contains and runs your app with the tag <i>vzlobins/{{ .Release.Namespace }}-{{ .Release.Name
-            }}:latest</i>
+        Build an image contains and runs your app with the tag <i>{{ .Values.task.impl.image.repo }}/{{
+            .Release.Namespace }}-{{ .Release.Name }}:latest</i>
     </li>
     <li>
         Upload the image to the DockerHub
