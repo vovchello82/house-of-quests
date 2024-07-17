@@ -8,7 +8,8 @@
         Implement an app running on port 8888. The app should implement the following REST endpoint
         <ul>
             <li>accepting only POST requests and responding with the value from the request body</li>
-            <li>accepting only requests of plain/text content type</li>
+            <li>accepting only requests of plain/text content type, answering with 415 Unsupported Media Type otherwise
+            </li>
             <li>the request body must be alpha numeric</li>
             <li>the length of the request body must be less than 9 charachters</li>
             <li>responding with BadRequest in case of requierments violation</li>

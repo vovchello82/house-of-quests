@@ -33,27 +33,27 @@ spec:
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl  -w '%{http_code}' -s -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: json/application' -s -d 'A') != \"415\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
+            args: [ "if [ $(curl  -w '%{http_code}' -s -o /dev/null -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: json/application' -d 'A') != \"415\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
 
           - image: nginx:alpine        
             name: allowed-method
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl -w '%{http_code}' -s http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888) != \"405\" ]; then exit 1; else echo 'allowed-method checked'; fi" ]
+            args: [ "if [ $(curl -w '%{http_code}' -s -o /dev/null http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888) != \"405\" ]; then exit 1; else echo 'allowed-method checked'; fi" ]
 
           - image: nginx:alpine         
             name:  alpha-numeric-check
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl -w '%{http_code}' -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: text/plain' -d 'X ') != \"400\" ]; then exit 1; else echo 'alpha-numeric-check checked'; fi" ]
+            args: [ "if [ $(curl -s  -o /dev/null -w '%{http_code}' -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: text/plain' -d 'X ') != \"400\" ]; then exit 1; else echo 'alpha-numeric-check checked'; fi" ]
 
           - image: nginx:alpine       
             name: post-size-check
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl -w '%{http_code}' -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: text/plain' -d '12345678aB') != \"401\" ]; then exit 1; else echo 'post-size-check checked'; fi" ]
+            args: [ "if [ $(curl -s -o /dev/null -w '%{http_code}' -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: text/plain' -d '12345678aB') != \"401\" ]; then exit 1; else echo 'post-size-check checked'; fi" ]
 
           restartPolicy: Never

@@ -2,12 +2,12 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   creationTimestamp: null
-  name: {{ .Values.task.name }}-reaper
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-reaper
 spec:
   jobTemplate:
     metadata:
       creationTimestamp: null
-      name: {{ .Values.task.name }}-reaper
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-reaper
     spec:
       activeDeadlineSeconds: 80
       ttlSecondsAfterFinished: 60
@@ -23,9 +23,9 @@ spec:
             args:
             - |
               sleep 30
-              kubectl scale deployment task2-impl --replicas 0
+              kubectl scale deployment {{ .Release.Name }}-{{ .Chart.Name }}-impl --replicas 0
               sleep 1
-              kubectl scale deployment task2-impl --replicas 1
+              kubectl scale deployment {{ .Release.Name }}-{{ .Chart.Name }}-impl --replicas 1
             image: bitnami/kubectl
             name: reaper
             imagePullPolicy: IfNotPresent
