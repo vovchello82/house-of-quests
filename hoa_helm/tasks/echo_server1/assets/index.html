@@ -12,10 +12,11 @@
     <li>
         Implement an app running on port 8888. The app should implement the following REST endpoint
         <ul>
-            <li>accepting only POST requests and responding with the value from the request body</li>
-            <li>accepting only requests of plain/text content type, answering with 415 Unsupported Media Type otherwise
+            <li>accepting only POST requests and responding with the value from the request body, otherwise answering
+                with <i>Method Not Allowed</i> </li>
+            <li>accepting only requests of <i>plain/text</i> content type, answering with <i>Unsupported Media Type</i>
+                otherwise
             </li>
-            <li>responding with BadRequest in case of requierments violation</li>
         </ul>
     </li>
     <li>

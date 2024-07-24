@@ -13,11 +13,11 @@ A scalable platform for setting up hackatons, team events and coding competition
 
 ## HOA structure
 
-Team operate in their own worskpaces which are represented by a corresponsing K8S workspace. All for the current team intended quests are being deployed as helm charts in the target workspace.
+Teams operate in their own worskpaces which are represented by a corresponsing K8S workspace. All for the current team intended quests are being deployed as helm charts in the target workspace.
 
 ## How to start
 
-### How ro deploy a task
+### How to deploy a task
 
 Wheather there is no dedicated k8s workspace, run the following command from the according helm task subfolder. The parameter task.impl.image.repo is required 
 ```sh
@@ -29,7 +29,6 @@ If the workspace already exists
 helm install {TASK_NAME} -n {TEAM_NAME} --set task.impl.image.repo=dockerRepository .
 ```
 
-To set 
 
 ### Metrics
 
