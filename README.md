@@ -17,6 +17,21 @@ Teams operate in their own worskpaces which are represented by a corresponsing K
 
 ## How to start
 
+### Control app
+
+Run the following command from the _hoa-control-app_ folder.
+If the target workspace not exists.
+
+```sh
+helm install {TASK_NAME} . -n {TEAM_NAME} --create-namespace 
+```
+
+If the workspace already exists
+```sh
+helm install {TASK_NAME} -n {TEAM_NAME}
+```
+
+
 ### How to deploy a task
 
 Wheather there is no dedicated k8s workspace, run the following command from the according helm task subfolder. The parameter task.impl.image.repo is required 

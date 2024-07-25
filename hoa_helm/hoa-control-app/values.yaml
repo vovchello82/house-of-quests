@@ -14,8 +14,8 @@ podLabels: {}
 
 name: hoa-control-app
 image:
-  name: vzlobins/hoa-control-app
-  pullPolicy: Never
+  name: vovchello/hoa-control-app
+  pullPolicy: IfNotPresent
 
 autoscaling:
   enabled: false
