@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-check
+  labels:
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+    type: check    
+spec:
+  schedule: "*/2 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:  
+    spec:    
+      ttlSecondsAfterFinished: 100
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app:  {{ .Release.Name }}-{{ .Chart.Name }}-check
+            task: {{ .Release.Name }}-{{ .Chart.Name }}
+            type: check    
+        spec:
+          containers:
+            - image: curlimages/curl
+              name: check
+              args:
+                - "http://{{ .Release.Name }}-{{ .Chart.Name }}-rabbit-mq:15672/api/overview"
+          restartPolicy: Never

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+  labels:
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+    type: impl  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+        task: {{ .Release.Name }}-{{ .Chart.Name }}
+        type: impl                  
+    spec:
+      containers:    
+      - image: {{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest      
+        name: impl
+        imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
+        ports:
+        - containerPort: 8888
+      - image: rabbitmq:3.13-management
+        name: rabbit-mq
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 15672
+          - containerPort: 5672

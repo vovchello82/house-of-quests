@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(21, 21, 21);
+}
+
+* {
+    color: lightgreen;
+    font-family: monospace;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+}
+
+a {
+    color: greenyellow;
+}
