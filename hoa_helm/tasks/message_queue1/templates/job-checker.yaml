@@ -24,5 +24,5 @@ spec:
             - image: curlimages/curl
               name: check
               args:
-                - "http://{{ .Release.Name }}-{{ .Chart.Name }}-rabbit-mq:15672/api/overview"
+                - "http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:15672/api/overview"
           restartPolicy: Never

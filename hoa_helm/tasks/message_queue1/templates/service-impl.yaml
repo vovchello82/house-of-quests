@@ -11,6 +11,14 @@ spec:
   - name: impl-port
     port: 8888
     protocol: TCP
-    targetPort: 8888       
+    targetPort: 8888
+  - name: rabbit-mq
+    port: 5672
+    protocol: TCP
+    targetPort: 5672
+  - name: rabbit-web
+    port: 15672
+    protocol: TCP
+    targetPort: 15672
   selector:
     app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
