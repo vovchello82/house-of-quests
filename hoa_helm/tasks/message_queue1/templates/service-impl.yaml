@@ -7,11 +7,7 @@ metadata:
     task: {{ .Release.Name }}-{{ .Chart.Name }}
   name: {{ .Release.Name }}-{{ .Chart.Name }}-impl
 spec:
-  ports:    
-  - name: impl-port
-    port: 8888
-    protocol: TCP
-    targetPort: 8888
+  ports:
   - name: rabbit-mq
     port: 5672
     protocol: TCP

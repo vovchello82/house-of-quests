@@ -1,3 +1,4 @@
+import os
 import sys
 
 import pika
@@ -8,8 +9,11 @@ CHANNEL = 'team1-task5'
 
 def receive_message_and_exit():
     channel = None
+    rabbit_host = os.environ["RABBIT_HOST"]
     try:
-        connection = pika.BlockingConnection()
+        parameters = pika.ConnectionParameters(host=rabbit_host)
+        print(f"Trying to connect to {parameters}.")
+        connection = pika.BlockingConnection(parameters=parameters)
         channel = connection.channel()
         method_frame, header_frame, body = channel.basic_get(CHANNEL)
 
