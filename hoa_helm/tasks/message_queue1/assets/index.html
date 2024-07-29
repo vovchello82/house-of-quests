@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
 </head>
-<title>The house of apps: publish a message to a message queue <emph>{{ .Release.Namespace }}-{{ .Release.Name }}</emph></title>
+<title>The house of apps: publish a message to a message queue <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i></title>
 
 <h1>publish a message to a message queue</h1>
 <p>
@@ -11,7 +11,10 @@
     <li>
         Implement an app that connects to a rabbit MQ instance and send a messages
         <ul>
-            <li>the message must be pushed to the queue <emph>{{ .Release.Namespace }}-{{ .Release.Name }}</emph></li>
+            <li>the message must be pushed to the queue <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i><br />
+                <i>hint:</i> use the default connection setting, rabbit is running on localhost:5672. Virtual host: /
+
+            </li>
             <li>the content des not matter
             </li>
             <li>the message must be sent at a frequency of 1 message per minute</li>

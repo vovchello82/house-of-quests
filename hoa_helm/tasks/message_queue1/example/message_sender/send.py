@@ -1,3 +1,5 @@
+from time import sleep
+
 CHANNEL = "team1-task5"
 if __name__ == '__main__':
     import pika
@@ -16,14 +18,16 @@ if __name__ == '__main__':
     channel.confirm_delivery()
 
     # Send a message
-    try:
-        channel.basic_publish(exchange='',
-                              routing_key=CHANNEL,
-                              body='Hello World!',
-                              properties=pika.BasicProperties(content_type='text/plain',
+    while True:
+        try:
+            channel.basic_publish(exchange='',
+                                  routing_key=CHANNEL,
+                                  body='Hello World!',
+                                  properties=pika.BasicProperties(content_type='text/plain',
 
-                                                              delivery_mode=pika.DeliveryMode.Transient),
-                              mandatory=True)
-        print('Message was published')
-    except pika.exceptions.UnroutableError:
-        print('Message was returned')
+                                                                  delivery_mode=pika.DeliveryMode.Transient),
+                                  mandatory=True)
+            print('Message was published. Waiting 60 seconds for next message')
+            sleep(60)
+        except pika.exceptions.UnroutableError:
+            print('Message was returned')
