@@ -29,12 +29,22 @@ Teams operate in their own worskpaces which are represented by a corresponsing K
      * https://kubernetes.io/de/docs/tasks/tools/install-kubectl/
    * install kind, add it to PATH
      * https://kind.sigs.k8s.io/docs/user/quick-start/#installation
-
-2. **Create a cluster using kind with the config below**
+2. _**Install optional tooling**_
+   * Install k9s for easy console cluster management
+     * https://k9scli.io/topics/install/
+   * Install Lens desktop for cluster management with UI
+     * https://k8slens.dev/download
+3. **Create a cluster using kind with the config below**
     ```sh
      kind create cluster --config cluster_config.yaml
     ```
    _Hint:_ using port 80 requires administrator rights, so you might want to choose a number with 4 digits.
+4. **Start nginx ingress controller**
+
+    ```sh
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+    ```
+
 ### Control app
 
 Run the following command from the _hoa-control-app_ folder.
@@ -72,34 +82,6 @@ The for prometheus required labels are already added to the hoa pod so that the 
 helm install prometheus prometheus-community/prometheus
 ```
 
-### KIND
-#### nginx ingress controller
-
-```sh
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-```
-
-#### Kind example configuration
-
-```yaml
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-nodes:
-- role: control-plane
-  kubeadmConfigPatches:
-  - |
-    kind: InitConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "ingress-ready=true"
-  extraPortMappings:
-  - containerPort: 80
-    hostPort: 80
-    protocol: TCP
-  - containerPort: 443
-    hostPort: 443
-    protocol: TCP
-```
 
 ## Example startup script
 
