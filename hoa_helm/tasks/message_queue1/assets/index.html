@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
+</head>
+<title>The house of apps: publish a message to a message queue <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i></title>
+
+<h1>publish a message to a message queue</h1>
+<p>
+<ol>
+    <li>
+        Implement an app that <a href="https://www.rabbitmq.com/tutorials" target="_blank">connects to a Rabbit MQ instance</a> and send a message to a message queue every 30 seconds
+        <ul>
+            <li>the message must be published to the queue <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i>
+                <ul>
+                    <li><i>hint:</i> use the default connection settings, rabbit is running on localhost:5672. Virtual host: /</li>
+                    <li><i>hint:</i> The connection string (if you need it) would look like this: <code>amqp://guest:guest@localhost:5672/%2F</code></li>
+                </ul>
+            </li>
+            <li>the queue is already setup, use the routing key <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i> and default exchange (empty string)</li>
+            <li>the content does not matter</li>
+            <li>the app should not exit. If message publish failed, gracefully retry again after 30seconds</li>
+        </ul>
+    </li>
+    <li>
+        Build an image contains and runs your app with the tag <i>{{ .Values.task.impl.image.repo }}/{{
+            .Release.Namespace }}-{{ .Release.Name }}:latest</i>
+    </li>
+    <li>
+        Upload the image to the DockerHub
+    </li>
+    <li>
+        Check if you could solve the quest
+    </li>
+</ol>
+</p>
+
+</html>

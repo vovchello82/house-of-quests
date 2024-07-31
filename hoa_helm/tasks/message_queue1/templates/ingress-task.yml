@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"    
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+            port:
+              number: 80
+        path: /{{ .Release.Namespace }}/{{ .Release.Name }}/info(/|$)(.*)
+        pathType: ImplementationSpecific
