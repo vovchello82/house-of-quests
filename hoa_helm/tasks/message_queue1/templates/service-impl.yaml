@@ -12,9 +12,5 @@ spec:
     port: 5672
     protocol: TCP
     targetPort: 5672
-  - name: rabbit-web
-    port: 15672
-    protocol: TCP
-    targetPort: 15672
   selector:
     app: {{ .Release.Name }}-{{ .Chart.Name }}-impl

@@ -21,10 +21,6 @@ spec:
             type: check    
         spec:
           containers:
-{{/*            - image: curlimages/curl*/}}
-{{/*              name: check-rabbitmq*/}}
-{{/*              args:*/}}
-{{/*                - "http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:15672/api/overview"*/}}
             - image: vovchello/checker-message_queue1:latest
               name: check-message
               imagePullPolicy: IfNotPresent
