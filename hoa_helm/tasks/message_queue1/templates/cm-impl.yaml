@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-{{ .Chart.Name }}-impl-cm
 data:
   definitions.json: |
-{{ tpl (.Files.Get "assets/rabbitmq_init/definitions.json" ) . | indent 4 }}
+{{ tpl (.Files.Get "assets/rabbitmq_init/definitions.json" ) . }}
   rabbitmq.conf: |
-{{ tpl (.Files.Get "assets/rabbitmq_init/rabbitmq.conf" ) . | indent 4 }}
+    definitions.import_backend = local_filesystem
+    definitions.local.path = /tmp/rabbitmq/definitions.json
