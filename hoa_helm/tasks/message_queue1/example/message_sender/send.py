@@ -1,18 +1,19 @@
+import traceback
 from time import sleep
+import pika.exceptions
 
 CHANNEL = "team1-task5"
 if __name__ == '__main__':
-    import pika
-    import pika.exceptions
-
+    
+    parameters = pika.ConnectionParameters()
     # Open a connection to RabbitMQ on localhost using all default parameters
-    connection = pika.BlockingConnection()
+
+    print(f"Trying to connect to {parameters}")
+    connection = pika.BlockingConnection(parameters=parameters)
+    print(f"Success! Connected to {connection}")
 
     # Open the channel
     channel = connection.channel()
-
-    # Declare the queue
-    channel.queue_declare(queue=CHANNEL, durable=True, exclusive=False, auto_delete=False)
 
     # Enabled delivery confirmations. This is REQUIRED.
     channel.confirm_delivery()
@@ -24,10 +25,11 @@ if __name__ == '__main__':
                                   routing_key=CHANNEL,
                                   body='Hello World!',
                                   properties=pika.BasicProperties(content_type='text/plain',
-
                                                                   delivery_mode=pika.DeliveryMode.Transient),
-                                  mandatory=True)
-            print('Message was published. Waiting 60 seconds for next message')
-            sleep(60)
-        except pika.exceptions.UnroutableError:
-            print('Message was returned')
+                                  mandatory=True
+                                  )
+            print('Message was published.')
+        except pika.exceptions.AMQPChannelError as ex:
+            print(f'Message was returned: {str(ex)}')
+        finally:
+            sleep(30)

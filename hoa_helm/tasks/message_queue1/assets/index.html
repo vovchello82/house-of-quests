@@ -9,15 +9,17 @@
 <p>
 <ol>
     <li>
-        Implement an app that connects to a rabbit MQ instance and send a messages
+        Implement an app that <a href="https://www.rabbitmq.com/tutorials" target="_blank">connects to a Rabbit MQ instance</a> and send a message to a message queue every 30 seconds
         <ul>
-            <li>the message must be pushed to the queue <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i><br />
-                <i>hint:</i> use the default connection setting, rabbit is running on localhost:5672. Virtual host: /
-
+            <li>the message must be published to the queue <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i>
+                <ul>
+                    <li><i>hint:</i> use the default connection settings, rabbit is running on localhost:5672. Virtual host: /</li>
+                    <li><i>hint:</i> The connection string (if you need it) would look like this: <code>amqp://guest:guest@localhost:5672/%2F</code></li>
+                </ul>
             </li>
-            <li>the content des not matter
-            </li>
-            <li>the message must be sent at a frequency of 1 message per minute</li>
+            <li>the queue is already setup, use the routing key <i>{{ .Release.Namespace }}-{{ .Release.Name }}</i> and default exchange (empty string)</li>
+            <li>the content does not matter</li>
+            <li>the app should not exit. If message publish failed, gracefully retry again after 30seconds</li>
         </ul>
     </li>
     <li>

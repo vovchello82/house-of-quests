@@ -18,13 +18,41 @@ spec:
         task: {{ .Release.Name }}-{{ .Chart.Name }}
         type: impl                  
     spec:
-      containers:    
-      - image: {{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest
-        name: impl
-        imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
-      - image: rabbitmq:3.13-management
-        name: rabbit-mq
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 15672
-          - containerPort: 5672
+      containers:
+        - image: {{ required "A valid task.impl.image.repo is required!" .Values.task.impl.image.repo }}/{{ .Release.Namespace }}-{{ .Release.Name }}:latest
+          name: impl
+          imagePullPolicy: {{ .Values.task.impl.image.pullPolicy }}
+          env:
+            - name: "PYTHONUNBUFFERED"
+              value: "1"
+      initContainers:
+        - image: rabbitmq:3.13-management
+          name: rabbit-mq
+          imagePullPolicy: IfNotPresent
+          restartPolicy: Always
+          ports:
+            - containerPort: 15672
+            - containerPort: 5672
+          startupProbe:
+            httpGet:
+              path: /api/overview
+              port: 15672
+              httpHeaders:
+                - name: Authorization
+                  value: Basic Z3Vlc3Q6Z3Vlc3Q=
+            initialDelaySeconds: 7
+            periodSeconds: 2
+            timeoutSeconds: 5
+          env:
+            - name: "RABBITMQ_CONFIG_FILES"
+              value: ""
+            - name: "RABBITMQ_CONFIG_FILE"
+              value: "/tmp/rabbitmq/rabbitmq.conf"
+          volumeMounts:
+          - name: config-volume
+            mountPath: /tmp/rabbitmq
+            readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+           name: {{ .Release.Name }}-{{ .Chart.Name }}-impl-cm
