@@ -1,0 +1,60 @@
+{
+  "rabbit_version": "3.13.6",
+  "rabbitmq_version": "3.13.6",
+  "product_name": "RabbitMQ",
+  "product_version": "3.13.6",
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "VM9ZxyHWpHY21Bg6D4IwZBIeN3xMNSdOXYgoA9fsVwZUjfHV",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/",
+      "description": "Default virtual host",
+      "tags": [],
+      "metadata": {
+        "description": "Default virtual host",
+        "tags": []
+      }
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [],
+  "global_parameters": [
+    {
+      "name": "internal_cluster_id",
+      "value": "rabbitmq-cluster-id-z3jjqYTUOk1WGBsF-0PIoA"
+    }
+  ],
+  "policies": [],
+  "queues": [
+    {
+      "name": "{{ .Release.Namespace }}-{{ .Release.Name }}",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-max-length": 10,
+        "x-overflow": "reject-publish"
+      }
+    }
+  ],
+  "exchanges": [],
+  "bindings": []
+}
