@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
+</head>
+<title>The house of apps: RAG </title>
+
+<h1> Teach the LLM to answer to the given questions correctly</h1>
+<p>
+<ol>
+    <li>
+        LLM should be able to answer thq question: "What is the average temperature on the planet Zuhlkia"
+    </li>
+    <li>
+        Build an image contains and runs your app with the tag <i>{{ .Values.task.impl.image.repo }}/{{
+            .Release.Namespace }}-{{ .Release.Name }}:latest</i>
+    </li>
+    <li>
+        Upload the image to the DockerHub
+    </li>
+    <li>
+        Check if you could solve the quest
+    </li>
+</ol>
+</p>
+
+</html>
