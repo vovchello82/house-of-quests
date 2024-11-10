@@ -33,7 +33,7 @@ spec:
             command:
               - /bin/sh
               - -c
-            args: [ "if [ $(curl  -w '%{http_code}' -s -o /dev/null -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: json/application' -d 'A') != \"415\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
+            args: [ "if [ $(curl  -w '%{http_code}' -s -o /dev/null -POST http:\/\/{{ .Release.Name }}-{{ .Chart.Name }}-impl:8888 -H 'Content-type: json/application' -d 'A') != \"415\" ]; then exit 1; else echo 'allowed-content-type checked'; fi" ]
 
           - image: nginx:alpine        
             name: allowed-method
