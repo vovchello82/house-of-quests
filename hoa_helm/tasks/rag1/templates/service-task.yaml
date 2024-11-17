@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-descr
+spec:
+  ports:
+  - name: descr-port
+    port: 80
+    protocol: TCP
+    targetPort: 80       
+  - name: ollama-port
+    port: 11434
+    protocol: TCP
+    targetPort: 11434          
+  selector:
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-descr
