@@ -19,7 +19,7 @@ spec:
         task: {{ .Release.Name }}-{{ .Chart.Name }}
         type: descr
     spec:
-      containers:      
+      containers:
       - image: nginx:alpine
         name: descr
         imagePullPolicy: IfNotPresent
@@ -30,12 +30,12 @@ spec:
           mountPath: /usr/share/nginx/html
         resources:
           {{- toYaml .Values.task.impl.resources | nindent 12 }}
-      volumes:
-        - name: config-volume
-          configMap:
-           name: {{ .Release.Name }}-{{ .Chart.Name }}-cm
       - image: ollama/ollama
         name: ollama
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 11434 
+        - containerPort: 11434
+      volumes:
+        - name: config-volume
+          configMap:
+           name: {{ .Release.Name }}-{{ .Chart.Name }}-cm

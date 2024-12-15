@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-check
+  labels:
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+    type: check    
+spec:
+  schedule: "*/2 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:  
+    spec:    
+      ttlSecondsAfterFinished: 100
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app:  {{ .Release.Name }}-{{ .Chart.Name }}-check
+            task: {{ .Release.Name }}-{{ .Chart.Name }}
+            type: check    
+        spec:
+          containers:                   
+          - image: nginx:alpine     
+            name: standard-promt
+            command:
+              - /bin/sh
+              - -c
+            args: [ "if [ $(curl -POST http://{{ .Release.Name }}-{{ .Chart.Name }}-descr:11434/api/chat -s -d '{                          [24/11/24 | 10:39:16]
+  \"model\": \"phi3\",
+  \"messages\": [
+    {
+      \"role\": \"user\",
+      \"content\": \"what is Zuehlkia?\"
+    }
+  ], \"stream\": false}') != 'tesT12' ]; then exit 1; else echo 'standard-promt checked'; fi" ]
+
+          restartPolicy: Never

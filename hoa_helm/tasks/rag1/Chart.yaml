@@ -1,0 +1,9 @@
+apiVersion: v2
+name: rag
+description: A helm chart for the retrieval augmented generation task
+
+type: application
+
+version: 0.1.0
+
+appVersion: "1.16.0"
