@@ -33,6 +33,5 @@ spec:
       \"role\": \"user\",
       \"content\": \"what is Zuehlkia?\"
     }
-  ], \"stream\": false}') != 'tesT12' ]; then exit 1; else echo 'standard-promt checked'; fi" ]
-
+  ], \"stream\": false}') != 'XXX' ]; then exit 1; else echo 'standard-promt checked'; fi" ]
           restartPolicy: Never
