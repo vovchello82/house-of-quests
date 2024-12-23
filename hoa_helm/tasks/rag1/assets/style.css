@@ -7,6 +7,15 @@ body {
     font-family: monospace;
 }
 
+label {
+    text-emphasis: "=";
+}
+
+button,
+input {
+    background-color: black;
+}
+
 a.disabled {
     pointer-events: none;
     cursor: default;
@@ -15,4 +24,29 @@ a.disabled {
 
 a {
     color: greenyellow;
+}
+
+.output-area {
+    border-style: inset;
+    border-color: grey;
+    padding: 5px;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid lightgreen;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -1,56 +1,10 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
-    <script type="text/javascript">
-        async function postAndReload(contentElementId, targetElementId) {
-            const inputElement = document.getElementById(contentElementId);
-            const data = { "model": "phi3", "created_at": "2024-12-22T09:39:30.176355Z", "message": { "role": "assistant", "content": "The color of the sky appears to be blue when we look up at it during a clear day because of a phenomenon called Rayleigh scattering. This occurs when molecules and small particles in Earth's atmosphere scatter sunlight, which contains all colors, by smaller amounts more easily than other forms of light due to their shorter wavelengths (blue is closer to the short end of visible spectrum). The scattered blue light reaches our eyes from every direction after interacting with these atmospherine components. Since there are many paths in multiple directions through which this blue light can reach an observer, it appears as though the sky should be painted a beautiful shade of bright blue instead of just plain white or gray when overcast. \n\nHere's why: Sunlight is made up of different colors (red, orange, yellow, green, blue and violet) that are spread out like a rainbow because they travel at varying speeds through Earth's atmosphere – this separation happens due to the phenomenon called dispersion. When sunlight interacts with gas molecules or tiny particles in our planet’s atmosphere (like dust), these colors get scattered around, but blue light gets more strongly scattered than other visible color waves because it has a shorter wavelength and is at higher frequency of energy transfer; thus appearing to be the sky's dominant hue. The sun appears white from Earth during midday when its direct rays are coming down towards us (therefore, less scattering occurs), but as our view changes angle away or later in daylight hours it becomes redder due again to Rayleigh Scattering and this is why the sky often turns shades of pink, orange and finally reddish-orange at sunset.\n\nIn short: Earth's atmosphere scatters sunlight - particularly blue light because it has shorter wavelengths compared with other colors in visible spectrum (red which have longer) as a result we see the sky appear to be that wonderful shade of bright, clear and refreshingly beautiful azure." }, "done_reason": "stop", "done": true, "total_duration": 9053147292, "load_duration": 12486750, "prompt_eval_count": 14, "prompt_eval_duration": 401000000, "eval_count": 428, "eval_duration": 8638000000 }
-
-            //            const url = "{{ .Release.Namespace }}/{{ .Release.Name }}/api/chat";
-            const url = "http://localhost:11434/api/chat";
-            const jsonData = {
-                "model": "phi3",
-                "messages": [
-                    {
-                        "role": "user",
-                        "content": inputElement.value
-                    }
-                ],
-                "stream": false
-            }
-            try {
-
-                const response = await fetch(url, {
-                    method: 'POST',
-                    mode: "cors",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(jsonData)
-                });
-
-                // Check if the response is OK
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const rawResponse = await response.text();
-                const updatedContent = JSON.parse(rawResponse)['message']['content']
-
-                // Update the target element with the new content
-                const targetElement = document.getElementById(targetElementId);
-                if (targetElement) {
-                    targetElement.innerHTML = updatedContent;
-                } else {
-                    console.error(`Element with ID '${targetElementId}' not found.`);
-                }
-            } catch (error) {
-                console.error('Error during the POST request or DOM update:', error);
-            }
-        }
-
-    </script>
+    <!-- <link rel="stylesheet" href="/{{ .Release.Namespace }}/{{ .Release.Name }}/info/style.css">
+    -->
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
 </head>
 <title>The house of apps: RAG </title>
 
@@ -77,8 +31,11 @@
     <label for="promp">Prompt</label>
     <input type="text" id="prompt" name="prompt" />
     <button onclick="postAndReload('prompt', 'response-area')">Ask AI</button>
-    <label for="response-area">Output</label>
-<div id="response-area" name="response-area"></div>
+</p>
+<p>
+<div id="loader" class="loader" style="display: none;"></div>
+<label for="response-area">Output</label>
+<div id="response-area" class="output-area" name="response-area"></div>
 </p>
 
 </html>
