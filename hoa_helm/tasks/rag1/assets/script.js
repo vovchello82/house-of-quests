@@ -21,7 +21,8 @@ async function postAndReload(contentElementId, targetElementId) {
     }
 
     try {
-        const url = "http://localhost:11434/api/chat";
+        //const url = "http://localhost:11434/api/chat";
+        const url = "/{{ .Release.Namespace }}/{{ .Release.Name }}/ai/api/chat"
         const response = await fetch(url, {
             method: 'POST',
             mode: "cors",

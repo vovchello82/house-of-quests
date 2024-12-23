@@ -7,3 +7,5 @@ data:
 {{ tpl (.Files.Get "assets/index.html" ) . | indent 4 }}  
   style.css: |
 {{ tpl (.Files.Get "assets/style.css" ) . | indent 4 }}
+  script.js: |
+{{ tpl (.Files.Get "assets/script.js" ) . | indent 4 }}
