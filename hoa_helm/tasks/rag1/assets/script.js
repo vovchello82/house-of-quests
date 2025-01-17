@@ -1,6 +1,8 @@
 async function postAndReload(contentElementId, targetElementId) {
     const inputElement = document.getElementById(contentElementId);
     const loader = document.getElementById("loader");
+    const btnPost = document.getElementById("btnPost");
+
     if (loader) {
         loader.style.display = "block";
     }
@@ -9,6 +11,9 @@ async function postAndReload(contentElementId, targetElementId) {
         return;
     }
 
+    btnPost.disabled = true
+
+    inputElement.disabled = true
     const jsonData = {
         "model": "phi3",
         "messages": [
@@ -32,6 +37,8 @@ async function postAndReload(contentElementId, targetElementId) {
             body: JSON.stringify(jsonData)
         });
 
+        inputElement.disabled = false
+        btnPost.disabled = false
         // Check if the response is OK
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
