@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+  labels:
+    task: {{ .Release.Name }}-{{ .Chart.Name }}
+    type: impl  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-impl
+        task: {{ .Release.Name }}-{{ .Chart.Name }}
+        type: impl                  
+    spec:
+      containers:    
+      - image: vovchello/demo-rag      
+        name: llm-broker
+        imagePullPolicy: Never
+        env:
+        - name: SPRING_AI_OLLAMA_BASE_URL
+          value: http://{{ .Release.Name }}-{{ .Chart.Name }}-descr:11434
+        - name: APP_RESOURCES_DOCUMENTS_SOURCE
+          value: file:/tmp/data/*.txt
+
+        volumeMounts:
+        - mountPath: /tmp
+          name: data
+        ports:
+        - containerPort: 8080
+
+      volumes:
+        - name: data
+          emptyDir:
+            sizeLimit: 200Mi           
