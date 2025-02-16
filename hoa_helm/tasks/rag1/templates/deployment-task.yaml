@@ -35,6 +35,11 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 11434
+        lifecycle:
+            postStart:
+              exec:
+                command: ["ollama", "run", "phi3"]
+        
       volumes:
         - name: config-volume
           configMap:
