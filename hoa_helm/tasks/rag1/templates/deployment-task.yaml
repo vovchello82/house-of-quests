@@ -33,14 +33,22 @@ spec:
       - image: ollama/ollama
         name: ollama
         imagePullPolicy: IfNotPresent
+        env:
+        - name: OLLAMA_MODELS
+          value: /usr/share/ollama/.ollama/models
+        volumeMounts:
+          - name: models-volume
+            mountPath: /usr/share/ollama/.ollama/models
+            readOnly: true
         ports:
-        - containerPort: 11434
-        lifecycle:
-            postStart:
-              exec:
-                command: ["ollama", "run", "phi3"]
+        - containerPort: 11434        
         
       volumes:
+        - name: models-volume
+          hostPath:
+            path: /files/models
+            type: Directory
+
         - name: config-volume
           configMap:
            name: {{ .Release.Name }}-{{ .Chart.Name }}-cm
